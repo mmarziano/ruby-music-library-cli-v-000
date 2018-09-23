@@ -1,21 +1,20 @@
-require 'pry'
-require 'findable.rb'
-
 class Artist 
-  extend Concerns::Findable
   
-  attr_accessor :name, :songs 
+  extend Concerns::Findable 
   
-  @@all = []
+  attr_accessor :name 
   
+ @@all = []
+ 
   def initialize(name)
-    @name = name
+    @name = name 
     @songs = []
+    @@all << self
   end 
   
   def self.all
-    @@all
-  end
+    @@all 
+  end 
   
   def self.destroy_all
     @@all.clear
@@ -23,27 +22,26 @@ class Artist
   
   def save
     @@all << self 
-  end
+  end 
   
   def self.create(name)
-    self.new(name).tap do |artist|
-      artist.save
-    end
-  end
+    Artist.new(name)
+  end 
   
-  def songs
-    @songs
-  end
+  def songs 
+    @songs 
+  end 
   
   def add_song(song)
-   song.artist = self unless song.artist == self
-   @songs << song unless @songs.include?(song)
-  end
+    song.artist = self unless song.artist == self
+    @songs << song unless @songs.include?(song)
+  end 
   
   def genres 
-    genres = @songs.collect do |song|
-      song.genre
-    end
-    genres.uniq
-  end
+   genres = @songs.collect do |songs|
+     songs.genre 
+    end 
+    genres.uniq  
+  end 
+
 end 
